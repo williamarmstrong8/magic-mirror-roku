@@ -368,10 +368,16 @@
         }
         
         // Fetch news using XMLHttpRequest for Roku compatibility
+        // Try Vercel API route first, fallback to CORS proxy
         // GNews API: Free tier allows 100 requests/day, max 10 articles per request
         // We only fetch once per day to stay well under the limit
+        
+        // First try the Vercel API route (better solution)
+        var apiUrl = window.location.origin + '/api/news';
+        var fallbackUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=us&max=3&apikey=' + apiKey);
+        
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=us&max=3&apikey=' + apiKey, true);
+        xhr.open('GET', apiUrl, true);
         
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
@@ -396,19 +402,63 @@
                         showNewsError('Failed to parse news data');
                     }
                 } else {
-                    console.error('GNews API error:', xhr.status);
-                    if (xhr.status === 403) {
-                        showNewsError('Invalid API key');
-                    } else if (xhr.status === 429) {
-                        showNewsError('API rate limit exceeded');
-                    } else {
-                        showNewsError('Failed to fetch news');
-                    }
+                    console.error('Vercel API error:', xhr.status);
+                    // Fallback to CORS proxy
+                    console.log('Trying fallback CORS proxy...');
+                    tryCorsProxy();
                 }
             }
         };
         
+        xhr.onerror = function() {
+            console.log('Vercel API failed, trying fallback CORS proxy...');
+            tryCorsProxy();
+        };
+        
         xhr.send();
+        
+        // Fallback function to try CORS proxy
+        function tryCorsProxy() {
+            var fallbackXhr = new XMLHttpRequest();
+            fallbackXhr.open('GET', fallbackUrl, true);
+            
+            fallbackXhr.onreadystatechange = function() {
+                if (fallbackXhr.readyState === 4) {
+                    if (fallbackXhr.status === 200) {
+                        try {
+                            var data = JSON.parse(fallbackXhr.responseText);
+                            if (data.articles && data.articles.length > 0) {
+                                newsArticles = data.articles;
+                                currentNewsIndex = 0;
+                                
+                                // Cache the news articles
+                                localStorage.setItem('cachedNews', JSON.stringify(newsArticles));
+                                localStorage.setItem('lastNewsFetch', today);
+                                
+                                updateNews();
+                                console.log('Fetched news via CORS proxy');
+                            } else {
+                                showNewsError('No news articles found');
+                            }
+                        } catch (e) {
+                            console.error('Error parsing news data from proxy:', e);
+                            showNewsError('Failed to parse news data');
+                        }
+                    } else {
+                        console.error('CORS proxy error:', fallbackXhr.status);
+                        if (fallbackXhr.status === 403) {
+                            showNewsError('Invalid API key');
+                        } else if (fallbackXhr.status === 429) {
+                            showNewsError('API rate limit exceeded');
+                        } else {
+                            showNewsError('Failed to fetch news');
+                        }
+                    }
+                }
+            };
+            
+            fallbackXhr.send();
+        }
     }
     
     function updateNews() {
