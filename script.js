@@ -597,103 +597,55 @@
         updateQuote();
     }
     
-    // Photo functions with fade-in animation for transitions
+    // Simplified photo functions for Roku compatibility
     function updatePhotos() {
         if (photos.length === 0) return;
         
-        // Calculate indices for 5-photo display
-        var farLeftIndex = (currentPhotoIndex - 2 + photos.length) % photos.length;
-        var prevIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
-        var nextIndex = (currentPhotoIndex + 1) % photos.length;
-        var farRightIndex = (currentPhotoIndex + 2) % photos.length;
+        // Hide all photos first
+        var allPhotos = document.querySelectorAll('.photo');
+        for (var i = 0; i < allPhotos.length; i++) {
+            allPhotos[i].classList.remove('active');
+        }
         
-        // Update all photo sources
-        var farLeftPhotoElement = document.getElementById('farLeftPhoto');
-        var farRightPhotoElement = document.getElementById('farRightPhoto');
-        
-        if (farLeftPhotoElement) farLeftPhotoElement.src = 'photos/' + photos[farLeftIndex];
-        if (prevPhotoElement) prevPhotoElement.src = 'photos/' + photos[prevIndex];
-        if (currentPhotoElement) currentPhotoElement.src = 'photos/' + photos[currentPhotoIndex];
-        if (nextPhotoElement) nextPhotoElement.src = 'photos/' + photos[nextIndex];
-        if (farRightPhotoElement) farRightPhotoElement.src = 'photos/' + photos[farRightIndex];
+        // Show only the current photo
+        if (currentPhotoElement) {
+            currentPhotoElement.src = 'photos/' + photos[currentPhotoIndex];
+            currentPhotoElement.classList.add('active');
+        }
     }
     
     function nextPhoto() {
         if (photos.length === 0) return;
         
-        // Get all photo elements
-        var farLeftPhotoElement = document.getElementById('farLeftPhoto');
-        var prevPhotoElement = document.getElementById('prevPhoto');
-        var currentPhotoElement = document.getElementById('currentPhoto');
-        var nextPhotoElement = document.getElementById('nextPhoto');
-        var farRightPhotoElement = document.getElementById('farRightPhoto');
-        
-        if (!farLeftPhotoElement || !prevPhotoElement || !currentPhotoElement || !nextPhotoElement || !farRightPhotoElement) {
-            return;
+        // Fade out current photo
+        if (currentPhotoElement) {
+            currentPhotoElement.classList.remove('active');
         }
         
-        // Move to next photo index
-        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
-        
-        // Calculate the index for the new photo that will appear on the far right
-        var newFarRightIndex = (currentPhotoIndex + 2) % photos.length;
-        
-        // Prepare the far-left element to become the new far-right
-        // Update its source and position it off-screen to the right with opacity 0
-        farLeftPhotoElement.style.transition = 'none'; // Disable transition temporarily
-        farLeftPhotoElement.src = 'photos/' + photos[newFarRightIndex];
-        farLeftPhotoElement.style.left = '768px'; // Start off-screen to the right
-        farLeftPhotoElement.style.opacity = '0';
-        farLeftPhotoElement.style.transform = 'scale(0.9)';
-        farLeftPhotoElement.style.zIndex = '1';
-        
-        // Force a reflow to ensure the transition:none takes effect
-        void farLeftPhotoElement.offsetWidth;
-        
-        // Re-enable transitions with smoother timing
-        farLeftPhotoElement.style.transition = 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        
-        // Small delay to ensure transition is re-enabled
+        // Wait for fade out, then fade in next photo
         setTimeout(function() {
-            // Animate all photos simultaneously:
-            // 1. The new photo (currently off-screen right) fades in and slides to far-right position
-            farLeftPhotoElement.style.left = '640px';
-            farLeftPhotoElement.style.opacity = '1';
+            // Move to next photo
+            currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
             
-            // 2. All other photos slide left by one position
-            prevPhotoElement.style.left = '0';
-            prevPhotoElement.style.transform = 'scale(0.9)';
-            prevPhotoElement.style.zIndex = '1';
-            
-            currentPhotoElement.style.left = '128px';
-            currentPhotoElement.style.transform = 'scale(0.95)';
-            currentPhotoElement.style.zIndex = '2';
-            
-            nextPhotoElement.style.left = '320px';
-            nextPhotoElement.style.transform = 'scale(1.05)';
-            nextPhotoElement.style.zIndex = '3';
-            
-            farRightPhotoElement.style.left = '512px';
-            farRightPhotoElement.style.transform = 'scale(0.95)';
-            farRightPhotoElement.style.zIndex = '2';
-            
-            // After animation completes, swap IDs to maintain correct references
-            setTimeout(function() {
-                var tempElement = farLeftPhotoElement;
-                
-                farLeftPhotoElement.id = 'tempPhoto';
-                prevPhotoElement.id = 'farLeftPhoto';
-                currentPhotoElement.id = 'prevPhoto';
-                nextPhotoElement.id = 'currentPhoto';
-                farRightPhotoElement.id = 'nextPhoto';
-                tempElement.id = 'farRightPhoto';
-            }, 1200); // Wait for the slide animation to complete (1.2s)
-            
-        }, 50); // Small delay to ensure DOM is ready
+            // Update and fade in new photo
+            if (currentPhotoElement) {
+                currentPhotoElement.src = 'photos/' + photos[currentPhotoIndex];
+                currentPhotoElement.classList.add('active');
+            }
+        }, 500); // Half second delay for simple transition
     }
     
     // Initialize the application
     function init() {
+        // Hide all photos except the current one for simplified display
+        var allPhotos = document.querySelectorAll('.photo');
+        for (var i = 0; i < allPhotos.length; i++) {
+            allPhotos[i].style.display = 'none';
+        }
+        if (currentPhotoElement) {
+            currentPhotoElement.style.display = 'block';
+        }
+        
         // Set initial time
         updateDateTime();
         
