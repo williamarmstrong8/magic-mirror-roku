@@ -315,7 +315,7 @@ body {
     position: fixed;
     bottom: 24px;
     left: 24px;
-    width: 240px;
+    width: 180px;
     z-index: 10;
 }
 
@@ -323,40 +323,97 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    padding: 32px;
-    width: 320px;
+    padding: 24px;
+    width: 250px;
     margin: 0;
 }
 
 .roommate-title {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 36px;
-    margin-bottom: 16px;
+    font-size: 28px;
+    margin-bottom: 12px;
 }
 
 .roommate-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .roommate-item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
 
 .roommate-name {
     font-family: 'Inter', sans-serif;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
     color: #ffffff;
 }
 
 .roommate-status-text {
     font-family: 'Inter', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     color: #9ca3af;
+}
+
+/* Calendar */
+.calendar {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 280px;
+    z-index: 10;
+}
+
+.calendar .news-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 24px;
+    width: 280px;
+    margin: 0;
+}
+
+.calendar-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px;
+    margin-bottom: 16px;
+}
+
+.calendar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calendar-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.calendar-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 6px 10px;
+    min-width: 60px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.calendar-event {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    flex: 1;
 }
 
 /* Photo Gallery */
@@ -365,8 +422,8 @@ body {
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    width: 800px;
-    height: 240px;
+    width: 900px;
+    height: 270px;
     z-index: 5;
 }
 
@@ -378,8 +435,8 @@ body {
 
 .photo {
     position: absolute;
-    width: 192px;
-    height: 240px;
+    width: 216px;
+    height: 270px;
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -387,26 +444,26 @@ body {
 }
 
 .photo.current {
-    left: 310px;
-    top: -10px;
-    width: 208px;
-    height: 260px;
+    left: 348px;
+    top: -11px;
+    width: 234px;
+    height: 292px;
     z-index: 3;
 }
 
 .photo.next {
-    left: 508px;
-    top: -5px;
-    width: 200px;
-    height: 250px;
+    left: 567px;
+    top: -6px;
+    width: 225px;
+    height: 281px;
     z-index: 2;
 }
 
 .photo.prev {
-    left: 132px;
-    top: -5px;
-    width: 200px;
-    height: 250px;
+    left: 147px;
+    top: -6px;
+    width: 225px;
+    height: 281px;
     z-index: 2;
 }
 
@@ -416,7 +473,7 @@ body {
 }
 
 .photo.far-right {
-    left: 640px;
+    left: 720px;
     z-index: 1;
 }
 

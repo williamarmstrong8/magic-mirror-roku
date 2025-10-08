@@ -94,6 +94,7 @@
     // News data
     var newsArticles = [];
     
+    
     // Global variables
     var currentPhotoIndex = 0;
     var currentQuoteIndex = 0;
@@ -602,34 +603,30 @@
         updateQuote();
     }
     
-    // Simple 5-photo display for Roku compatibility
+    // Ultra-simple photo display - no animations, just instant updates
     function updatePhotos() {
         if (photos.length === 0) return;
         
-        // Calculate indices for 5-photo display
+        // Calculate indices
         var farLeftIndex = (currentPhotoIndex - 2 + photos.length) % photos.length;
         var prevIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
         var nextIndex = (currentPhotoIndex + 1) % photos.length;
         var farRightIndex = (currentPhotoIndex + 2) % photos.length;
         
-        // Update all photo sources - no animations, just instant updates
-        var farLeftPhotoElement = document.getElementById('farLeftPhoto');
-        var farRightPhotoElement = document.getElementById('farRightPhoto');
-        
-        if (farLeftPhotoElement) farLeftPhotoElement.src = 'photos/' + photos[farLeftIndex];
-        if (prevPhotoElement) prevPhotoElement.src = 'photos/' + photos[prevIndex];
-        if (currentPhotoElement) currentPhotoElement.src = 'photos/' + photos[currentPhotoIndex];
-        if (nextPhotoElement) nextPhotoElement.src = 'photos/' + photos[nextIndex];
-        if (farRightPhotoElement) farRightPhotoElement.src = 'photos/' + photos[farRightIndex];
+        // Instant updates - no transitions, no animations
+        document.getElementById('farLeftPhoto').src = 'photos/' + photos[farLeftIndex];
+        document.getElementById('prevPhoto').src = 'photos/' + photos[prevIndex];
+        document.getElementById('currentPhoto').src = 'photos/' + photos[currentPhotoIndex];
+        document.getElementById('nextPhoto').src = 'photos/' + photos[nextIndex];
+        document.getElementById('farRightPhoto').src = 'photos/' + photos[farRightIndex];
     }
     
     function nextPhoto() {
         if (photos.length === 0) return;
-        
-        // Simply move to next photo and update all sources instantly
         currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
         updatePhotos();
     }
+    
     
     // Initialize the application
     function init() {
