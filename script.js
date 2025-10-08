@@ -495,12 +495,49 @@
         newsSourceElement.textContent = currentArticle.source.name || 'Unknown Source';
         newsDateElement.textContent = new Date(currentArticle.publishedAt).toLocaleDateString();
         
+        // Adjust container height based on active article content
+        adjustNewsContainerHeight();
+        
         // Update indicators
         newsIndicatorsElement.innerHTML = '';
         for (var j = 0; j < newsArticles.length; j++) {
             var indicator = document.createElement('div');
             indicator.className = 'news-indicator' + (j === currentNewsIndex ? ' active' : '');
             newsIndicatorsElement.appendChild(indicator);
+        }
+    }
+    
+    function adjustNewsContainerHeight() {
+        var newsContentElement = document.getElementById('newsContent');
+        var activeArticle = newsArticleElements[currentNewsIndex];
+        
+        if (newsContentElement && activeArticle) {
+            // Temporarily make the active article visible to measure its height
+            var originalPosition = activeArticle.style.position;
+            var originalTop = activeArticle.style.top;
+            var originalLeft = activeArticle.style.left;
+            var originalRight = activeArticle.style.right;
+            
+            activeArticle.style.position = 'relative';
+            activeArticle.style.top = '';
+            activeArticle.style.left = '';
+            activeArticle.style.right = '';
+            
+            // Get the natural height of the content
+            var contentHeight = activeArticle.offsetHeight;
+            
+            // Set minimum height and add some padding
+            var minHeight = 120;
+            var newHeight = Math.max(contentHeight + 20, minHeight);
+            
+            // Apply the new height
+            newsContentElement.style.height = newHeight + 'px';
+            
+            // Restore original positioning
+            activeArticle.style.position = originalPosition;
+            activeArticle.style.top = originalTop;
+            activeArticle.style.left = originalLeft;
+            activeArticle.style.right = originalRight;
         }
     }
     
@@ -521,6 +558,9 @@
                 var currentArticle = newsArticles[currentNewsIndex];
                 newsSourceElement.textContent = currentArticle.source.name || 'Unknown Source';
                 newsDateElement.textContent = new Date(currentArticle.publishedAt).toLocaleDateString();
+                
+                // Adjust container height for new article
+                adjustNewsContainerHeight();
                 
                 // Update indicators
                 newsIndicatorsElement.innerHTML = '';

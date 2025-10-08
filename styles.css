@@ -213,22 +213,27 @@ body {
 
 .news-content {
     position: relative;
-    height: 160px;
+    min-height: 120px;
     width: 100%;
 }
 
 .news-article {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
+    position: relative;
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
+    margin-bottom: 16px;
 }
 
 .news-article.active {
     opacity: 1;
+}
+
+.news-article:not(.active) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
 }
 
 .news-headline {
