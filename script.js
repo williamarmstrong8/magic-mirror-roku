@@ -597,55 +597,37 @@
         updateQuote();
     }
     
-    // Simplified photo functions for Roku compatibility
+    // Simple 5-photo display for Roku compatibility
     function updatePhotos() {
         if (photos.length === 0) return;
         
-        // Hide all photos first
-        var allPhotos = document.querySelectorAll('.photo');
-        for (var i = 0; i < allPhotos.length; i++) {
-            allPhotos[i].classList.remove('active');
-        }
+        // Calculate indices for 5-photo display
+        var farLeftIndex = (currentPhotoIndex - 2 + photos.length) % photos.length;
+        var prevIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        var nextIndex = (currentPhotoIndex + 1) % photos.length;
+        var farRightIndex = (currentPhotoIndex + 2) % photos.length;
         
-        // Show only the current photo
-        if (currentPhotoElement) {
-            currentPhotoElement.src = 'photos/' + photos[currentPhotoIndex];
-            currentPhotoElement.classList.add('active');
-        }
+        // Update all photo sources - no animations, just instant updates
+        var farLeftPhotoElement = document.getElementById('farLeftPhoto');
+        var farRightPhotoElement = document.getElementById('farRightPhoto');
+        
+        if (farLeftPhotoElement) farLeftPhotoElement.src = 'photos/' + photos[farLeftIndex];
+        if (prevPhotoElement) prevPhotoElement.src = 'photos/' + photos[prevIndex];
+        if (currentPhotoElement) currentPhotoElement.src = 'photos/' + photos[currentPhotoIndex];
+        if (nextPhotoElement) nextPhotoElement.src = 'photos/' + photos[nextIndex];
+        if (farRightPhotoElement) farRightPhotoElement.src = 'photos/' + photos[farRightIndex];
     }
     
     function nextPhoto() {
         if (photos.length === 0) return;
         
-        // Fade out current photo
-        if (currentPhotoElement) {
-            currentPhotoElement.classList.remove('active');
-        }
-        
-        // Wait for fade out, then fade in next photo
-        setTimeout(function() {
-            // Move to next photo
-            currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
-            
-            // Update and fade in new photo
-            if (currentPhotoElement) {
-                currentPhotoElement.src = 'photos/' + photos[currentPhotoIndex];
-                currentPhotoElement.classList.add('active');
-            }
-        }, 500); // Half second delay for simple transition
+        // Simply move to next photo and update all sources instantly
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        updatePhotos();
     }
     
     // Initialize the application
     function init() {
-        // Hide all photos except the current one for simplified display
-        var allPhotos = document.querySelectorAll('.photo');
-        for (var i = 0; i < allPhotos.length; i++) {
-            allPhotos[i].style.display = 'none';
-        }
-        if (currentPhotoElement) {
-            currentPhotoElement.style.display = 'block';
-        }
-        
         // Set initial time
         updateDateTime();
         

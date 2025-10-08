@@ -373,14 +373,32 @@ body {
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    left: 304px; /* Center position */
-    z-index: 3;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
+    opacity: 1;
 }
 
-.photo.active {
-    opacity: 1;
+.photo.current {
+    left: 320px;
+    z-index: 3;
+}
+
+.photo.next {
+    left: 512px;
+    z-index: 2;
+}
+
+.photo.prev {
+    left: 128px;
+    z-index: 2;
+}
+
+.photo.far-left {
+    left: 0;
+    z-index: 1;
+}
+
+.photo.far-right {
+    left: 640px;
+    z-index: 1;
 }
 
 /* Responsive adjustments for smaller screens */
@@ -417,7 +435,26 @@ body {
     .photo {
         width: 144px;
         height: 180px;
-        left: 153px; /* Center position for mobile */
+    }
+    
+    .photo.current {
+        left: 153px;
+    }
+    
+    .photo.next {
+        left: 306px;
+    }
+    
+    .photo.prev {
+        left: 0;
+    }
+    
+    .photo.far-left {
+        left: -144px;
+    }
+    
+    .photo.far-right {
+        left: 450px;
     }
 }
 
