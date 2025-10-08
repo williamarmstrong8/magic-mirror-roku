@@ -4,62 +4,54 @@
 (function() {
     'use strict';
     
-    // Photo list - all available photos
+    // Photo list - all available photos (randomized order)
     var photos = [
-        'ellie-bday.JPG',
-        'ellie-champagne.jpg',
-        'ellie-cup.jpg',
-        'huddy-lim-will.JPG',
-        'IMG_0511.JPG',
-        'IMG_0556.JPG',
-        'IMG_1068.jpeg',
-        'IMG_1072.jpeg',
-        'IMG_1098.jpeg',
-        'IMG_1111.jpeg',
-        'IMG_1128.JPG',
-        'IMG_1177.jpeg',
-        'IMG_1389.jpeg',
-        'IMG_1417.jpeg',
-        'IMG_1451.jpeg',
-        'IMG_1469.jpeg',
-        'IMG_1493.jpeg',
         'IMG_1537.jpeg',
-        'IMG_1588.jpeg',
-        'IMG_1720.jpeg',
-        'IMG_2039.jpeg',
-        'IMG_2725.JPG',
-        'IMG_2845.jpeg',
-        'IMG_3312.jpeg',
-        'IMG_4130.JPG',
-        'IMG_4190.JPG',
-        'IMG_4310.JPG',
-        'IMG_4345.jpeg',
-        'IMG_4721.jpeg',
-        'IMG_6451.JPG',
-        'IMG_6459.JPG',
-        'IMG_6462.JPG',
-        'IMG_6464.JPG',
-        'IMG_6472.JPG',
+        'ellie-champagne.jpg',
         'IMG_8117.jpeg',
-        'IMG_8138.jpeg',
-        'IMG_8198.jpeg',
-        'IMG_8221.jpeg',
-        'IMG_8280.jpeg',
-        'IMG_8309.jpeg',
-        'IMG_8331.jpeg',
-        'IMG_8335.jpeg',
-        'IMG_8496.jpeg',
-        'IMG_9372.jpeg',
-        'IMG_9988.jpeg',
+        'IMG_1098.jpeg',
         'modbrew-window.JPG',
-        'modbrew.jpg'
+        'IMG_1068.jpeg',
+        'IMG_1417.jpeg',
+        'ellie-bday.JPG',
+        'IMG_8138.jpeg',
+        'IMG_2725.JPG',
+        'IMG_0556.JPG',
+        'IMG_4345.jpeg',
+        'huddy-lim-will.JPG',
+        'IMG_1177.jpeg',
+        'IMG_3312.jpeg',
+        'ellie-cup.jpg',
+        'IMG_1588.jpeg',
+        'IMG_2845.jpeg',
+        'IMG_1493.jpeg',
+        'IMG_4190.JPG',
+        'IMG_1111.jpeg',
+        'IMG_1720.jpeg',
+        'IMG_4310.JPG',
+        'IMG_1451.jpeg',
+        'IMG_9988.jpeg',
+        'IMG_4130.JPG',
+        'IMG_1469.jpeg',
+        'IMG_6451.JPG',
+        'IMG_8198.jpeg',
+        'IMG_1128.JPG',
+        'IMG_2039.jpeg',
+        'IMG_6459.JPG',
+        'IMG_1389.jpeg',
+        'IMG_4721.jpeg',
+        'IMG_6464.JPG',
+        'IMG_0511.JPG',
+        'IMG_8331.jpeg',
+        'modbrew.jpg',
+        'IMG_9372.jpeg'
     ];
     
     // Quotes array
     var quotes = [
         {
-            text: "The only way to do great work is to love what you do.",
-            author: "Steve Jobs"
+            text: "Life is what happens to you while you're busy making other plans.",
+            author: "John Lennon"
         },
         {
             text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
@@ -107,6 +99,7 @@
     var currentQuoteIndex = 0;
     var currentNewsIndex = 0;
     var weatherData = null;
+    var lastQuoteDate = null;
     
     // DOM elements
     var timeElement = document.getElementById('time');
@@ -592,6 +585,18 @@
         quoteAuthorElement.textContent = '— ' + quote.author;
     }
     
+    function checkAndUpdateQuote() {
+        var today = new Date().toDateString();
+        
+        // Check if we need to change the quote (new day)
+        if (lastQuoteDate !== today) {
+            // Move to next quote for the new day
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            updateQuote();
+            lastQuoteDate = today;
+        }
+    }
+    
     function nextQuote() {
         currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
         updateQuote();
@@ -631,10 +636,13 @@
         // Set initial time
         updateDateTime();
         
+        // Initialize quote date tracking
+        lastQuoteDate = new Date().toDateString();
+        
         // Set up intervals
         setInterval(updateDateTime, 1000);
         setInterval(nextNews, 8000);
-        setInterval(nextQuote, 5 * 60 * 60 * 1000); // 5 hours
+        setInterval(checkAndUpdateQuote, 60 * 60 * 1000); // Check every hour for new day
         setInterval(nextPhoto, 5000); // 5 seconds
         
         // Load initial data
