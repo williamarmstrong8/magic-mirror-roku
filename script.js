@@ -603,7 +603,7 @@
         updateQuote();
     }
     
-    // Ultra-simple photo display - no animations, just instant updates
+    // Optimized photo display with preloading for faster loading
     function updatePhotos() {
         if (photos.length === 0) return;
         
@@ -613,12 +613,41 @@
         var nextIndex = (currentPhotoIndex + 1) % photos.length;
         var farRightIndex = (currentPhotoIndex + 2) % photos.length;
         
-        // Instant updates - no transitions, no animations
-        document.getElementById('farLeftPhoto').src = 'photos/' + photos[farLeftIndex];
-        document.getElementById('prevPhoto').src = 'photos/' + photos[prevIndex];
-        document.getElementById('currentPhoto').src = 'photos/' + photos[currentPhotoIndex];
-        document.getElementById('nextPhoto').src = 'photos/' + photos[nextIndex];
-        document.getElementById('farRightPhoto').src = 'photos/' + photos[farRightIndex];
+        // Preload next batch of images for smoother transitions
+        preloadImage(photos[farLeftIndex]);
+        preloadImage(photos[prevIndex]);
+        preloadImage(photos[nextIndex]);
+        preloadImage(photos[farRightIndex]);
+        
+        // Update photo sources with optimized loading
+        updatePhotoElement('farLeftPhoto', photos[farLeftIndex]);
+        updatePhotoElement('prevPhoto', photos[prevIndex]);
+        updatePhotoElement('currentPhoto', photos[currentPhotoIndex]);
+        updatePhotoElement('nextPhoto', photos[nextIndex]);
+        updatePhotoElement('farRightPhoto', photos[farRightIndex]);
+    }
+    
+    // Preload image for faster loading
+    function preloadImage(filename) {
+        var img = new Image();
+        img.src = 'photos/' + filename;
+    }
+    
+    // Update photo element with loading optimization
+    function updatePhotoElement(elementId, filename) {
+        var element = document.getElementById(elementId);
+        if (element) {
+            // Add loading class for visual feedback
+            element.style.opacity = '0.7';
+            
+            // Create new image to preload
+            var img = new Image();
+            img.onload = function() {
+                element.src = this.src;
+                element.style.opacity = '1';
+            };
+            img.src = 'photos/' + filename;
+        }
     }
     
     function nextPhoto() {

@@ -364,7 +364,7 @@ body {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    width: 280px;
+    width: 320px;
     z-index: 10;
 }
 
@@ -372,45 +372,45 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    padding: 24px;
-    width: 280px;
+    padding: 28px;
+    width: 320px;
     margin: 0;
 }
 
 .calendar-title {
     font-family: 'Archivo Black', sans-serif;
-    font-size: 28px;
-    margin-bottom: 16px;
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
 .calendar-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
 }
 
 .calendar-item {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 24px;
 }
 
 .calendar-date {
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: #ffffff;
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 6px;
-    padding: 6px 10px;
-    min-width: 60px;
+    padding: 8px 12px;
+    min-width: 70px;
     text-align: center;
     flex-shrink: 0;
 }
 
 .calendar-event {
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     color: #ffffff;
     flex: 1;
@@ -441,6 +441,14 @@ body {
     object-fit: cover;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     opacity: 1;
+    /* Image optimization for faster loading */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    max-width: 720px;
+    max-height: 720px;
+    /* Force hardware acceleration */
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .photo.current {
