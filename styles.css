@@ -392,7 +392,11 @@ body {
 .calendar-item {
     display: flex;
     align-items: center;
-    gap: 24px;
+    margin-bottom: 4px;
+}
+
+.calendar-item:last-child {
+    margin-bottom: 0;
 }
 
 .calendar-date {
@@ -406,6 +410,7 @@ body {
     min-width: 70px;
     text-align: center;
     flex-shrink: 0;
+    margin-right: 24px;
 }
 
 .calendar-event {
@@ -441,14 +446,13 @@ body {
     object-fit: cover;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     opacity: 1;
+    /* Simple fade transition */
+    transition: opacity 0.3s ease-in-out;
     /* Image optimization for faster loading */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     max-width: 720px;
     max-height: 720px;
-    /* Force hardware acceleration */
-    transform: translateZ(0);
-    will-change: transform;
 }
 
 .photo.current {
