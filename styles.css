@@ -1,0 +1,502 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Date and Time */
+.date-time {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+}
+
+.time {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+}
+
+.date {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: #d1d5db;
+}
+
+/* Weather */
+.weather {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+}
+
+.weather-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.weather-icon {
+    font-size: 72px;
+    line-height: 1;
+}
+
+.temperature {
+    font-family: 'Inter', sans-serif;
+    font-size: 72px;
+    font-weight: 300;
+    letter-spacing: -1px;
+}
+
+/* Tasks */
+.tasks {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    max-width: 400px;
+    z-index: 10;
+}
+
+.tasks-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 40px;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+}
+
+.tasks-list {
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.task-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.task-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.upcoming-tasks {
+    position: absolute;
+    top: 200px;
+    left: 24px;
+    max-width: 400px;
+    z-index: 10;
+}
+
+.upcoming-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #9ca3af;
+    letter-spacing: 1px;
+}
+
+.upcoming-list {
+    list-style: none;
+}
+
+.upcoming-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.upcoming-checkbox {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #6b7280;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.upcoming-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 60px;
+}
+
+.upcoming-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #d1d5db;
+}
+
+/* News */
+.news {
+    position: fixed;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.news-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 24px;
+    width: 700px;
+    margin: 0 24px;
+}
+
+.news-header {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.news-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 16px;
+    color: #9ca3af;
+}
+
+.news-separator {
+    color: #6b7280;
+}
+
+.news-content {
+    position: relative;
+    height: 160px;
+    width: 100%;
+}
+
+.news-article {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.news-article.active {
+    opacity: 1;
+}
+
+.news-headline {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.news-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.news-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.news-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #6b7280;
+    transition: background-color 0.3s;
+}
+
+.news-indicator.active {
+    background-color: #ffffff;
+}
+
+/* Quotes */
+.quotes {
+    position: absolute;
+    top: 120px;
+    right: 24px;
+    max-width: 350px;
+    text-align: right;
+    z-index: 10;
+}
+
+.quote-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: #d1d5db;
+    font-style: italic;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.quote-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Roommate Status */
+.roommate-status {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 180px;
+    z-index: 10;
+}
+
+.roommate-status .news-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 24px;
+    width: 250px;
+    margin: 0;
+}
+
+.roommate-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.roommate-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.roommate-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.roommate-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.roommate-status-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #9ca3af;
+}
+
+/* Photo Gallery */
+.photo-gallery {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 240px;
+    z-index: 5;
+}
+
+.photo-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.photo {
+    position: absolute;
+    width: 192px;
+    height: 240px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.photo.current {
+    left: 320px;
+    z-index: 3;
+    transform: scale(1.05);
+}
+
+.photo.next {
+    left: 512px;
+    z-index: 2;
+    transform: scale(0.95);
+}
+
+.photo.prev {
+    left: 128px;
+    z-index: 2;
+    transform: scale(0.95);
+}
+
+.photo.far-left {
+    left: 0;
+    z-index: 1;
+    transform: scale(0.9);
+}
+
+.photo.far-right {
+    left: 640px;
+    z-index: 1;
+    transform: scale(0.9);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+    .time {
+        font-size: 36px;
+    }
+    
+    .date {
+        font-size: 18px;
+    }
+    
+    .temperature {
+        font-size: 36px;
+    }
+    
+    .weather-icon {
+        font-size: 36px;
+    }
+    
+    .tasks-title {
+        font-size: 24px;
+    }
+    
+    .task-text {
+        font-size: 14px;
+    }
+    
+    .photo-gallery {
+        width: 450px;
+        height: 180px;
+    }
+    
+    .photo {
+        width: 144px;
+        height: 180px;
+    }
+    
+    .photo.current {
+        left: 153px;
+    }
+    
+    .photo.next {
+        left: 306px;
+    }
+    
+    .photo.prev {
+        left: 0;
+    }
+    
+    .photo.far-left {
+        left: -144px;
+    }
+    
+    .photo.far-right {
+        left: 450px;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+}
+
+.error {
+    color: #9ca3af;
+}
+
+/* Simple animations using CSS transitions */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    opacity: 0;
+    animation: slideIn 1.5s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

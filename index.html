@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roku Mirror</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Date and Time -->
+        <div class="date-time" id="dateTime">
+            <div class="time" id="time">12:00 AM</div>
+            <div class="date" id="date">Monday, January 1</div>
+        </div>
+
+        <!-- Weather -->
+        <div class="weather" id="weather">
+            <div class="weather-content">
+                <div class="weather-icon" id="weatherIcon">☀️</div>
+                <div class="temperature" id="temperature">72°F</div>
+            </div>
+        </div>
+
+        <!-- Tasks -->
+        <div class="tasks" id="tasks">
+            <h2 class="tasks-title">TODAY'S TASKS</h2>
+            <ul class="tasks-list" id="tasksList">
+                <li class="task-item">
+                    <div class="task-checkbox"></div>
+                    <span class="task-text">Loading tasks...</span>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- News -->
+        <div class="news" id="news">
+            <div class="news-card">
+                <div class="news-header">
+                    <h3 class="news-title">News Recap</h3>
+                    <div class="news-meta">
+                        <span class="news-source" id="newsSource">Tech News</span>
+                        <span class="news-separator">•</span>
+                        <span class="news-date" id="newsDate">Today</span>
+                    </div>
+                </div>
+                <div class="news-content" id="newsContent">
+                    <div class="news-article active" id="newsArticle0">
+                        <h4 class="news-headline" id="newsHeadline0">Loading news...</h4>
+                        <p class="news-description" id="newsDescription0">Please wait while we fetch the latest news.</p>
+                    </div>
+                    <div class="news-article" id="newsArticle1">
+                        <h4 class="news-headline" id="newsHeadline1"></h4>
+                        <p class="news-description" id="newsDescription1"></p>
+                    </div>
+                    <div class="news-article" id="newsArticle2">
+                        <h4 class="news-headline" id="newsHeadline2"></h4>
+                        <p class="news-description" id="newsDescription2"></p>
+                    </div>
+                </div>
+                <div class="news-indicators" id="newsIndicators"></div>
+            </div>
+        </div>
+
+        <!-- Quotes -->
+        <div class="quotes" id="quotes">
+            <p class="quote-text" id="quoteText">"The only way to do great work is to love what you do."</p>
+            <p class="quote-author" id="quoteAuthor">— Steve Jobs</p>
+        </div>
+
+        <!-- Roommate Status -->
+        <div class="roommate-status" id="roommateStatus">
+            <div class="news-card">
+                <h3 class="roommate-title">Roommate Status</h3>
+                <div class="roommate-list" id="roommateList">
+                    <div class="roommate-item">
+                        <div class="roommate-name">Ian</div>
+                        <div class="roommate-status-text">Prospective Play</div>
+                    </div>
+                    <div class="roommate-item">
+                        <div class="roommate-name">Gabi</div>
+                        <div class="roommate-status-text">BBQ Host</div>
+                    </div>
+                    <div class="roommate-item">
+                        <div class="roommate-name">Steve</div>
+                        <div class="roommate-status-text">Pissing Detox</div>
+                    </div>
+                    <div class="roommate-item">
+                        <div class="roommate-name">JB</div>
+                        <div class="roommate-status-text">Permanently Horny</div>
+                    </div>
+                    <div class="roommate-item">
+                        <div class="roommate-name">Lim</div>
+                        <div class="roommate-status-text">Licking Ass</div>
+                    </div>
+                    <div class="roommate-item">
+                        <div class="roommate-name">Will</div>
+                        <div class="roommate-status-text">Infinite Play</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <div class="photo-gallery" id="photoGallery">
+            <div class="photo-container">
+                <img class="photo far-left" id="farLeftPhoto" src="photos/_ (3).jpeg" alt="Inspiration">
+                <img class="photo prev" id="prevPhoto" src="photos/_ (4).jpeg" alt="Inspiration">
+                <img class="photo current" id="currentPhoto" src="photos/Athlete.jpeg" alt="Inspiration">
+                <img class="photo next" id="nextPhoto" src="photos/Flying Safari with Ultima Thule Lodge in Alaska_ - Review.jpeg" alt="Inspiration">
+                <img class="photo far-right" id="farRightPhoto" src="photos/Lake Tahoe, CA.jpeg" alt="Inspiration">
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
